@@ -1,8 +1,12 @@
 package com.czxy.domain;
 
-import java.util.Date;
-import javax.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "student")
@@ -37,7 +41,8 @@ public class Student {
      * 出生日期
      */
     @Column(name = "student_birthday")
-    private Date studentBirthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd__HH:mm:ss")
+    private String studentBirthday;
 
     /**
      *  邮箱

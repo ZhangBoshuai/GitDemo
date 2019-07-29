@@ -4,11 +4,45 @@
     <meta charset="UTF-8">
     <title>所有学生信息</title>
     <!--jquery-->
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js" ></script>
     <!--获取form表单-->
-    <script src="js/form2json.js"></script>
+    <script src="../js/form2json.js"></script>
     <!--图片上传回显-->
-    <script src="js/imgEcho.js"></script>
+    <script src="../js/imgEcho.js"></script>
+
+    <script>
+
+        $(function () {
+            $.ajax({
+                url:'/student/findAllStu',
+                type:'get',
+                dataType:'json',
+                success:function (data) {
+                    $(data).each(function (index, s) {
+                        $("#tbStudent").append("<tr>\n" +
+                            "        <td>"+s.studentId+"</td>\n" +
+                            "        <td>"+s.studentName+"</td>\n" +
+                            "        <td>"+s.studentSex+"</td>\n" +
+                            "        <td>"+s.studentBirthday+"</td>\n" +
+                            "        <td>"+s.studentEmail+"</td>\n" +
+                            "        <td>"+s.studentYear+"</td>\n" +
+                            "        <td>"+s.studentSemester+"</td>\n" +
+                            "        <td>"+s.studentPhone+"</td>\n" +
+                            "        <td>"+s.major.majorName+"</td>\n" +
+                            "        <td>\n" +
+                            "            <a href=\"#\">编辑</a>\n" +
+                            "            <a href=\"#\">删除</a>\n" +
+                            "        </td>\n" +
+                            "    </tr>")
+                    })
+                }
+
+            })
+
+        })
+
+    </script>
+
 </head>
 <body>
 <h1>当前学生信息</h1>
@@ -17,7 +51,7 @@
 </form>
 <hr>
 <hr>
-<table border="1">
+<table border="1" >
     <thead>
     <th>ID</th>
     <th>姓名</th>
@@ -31,21 +65,21 @@
     <th>操作</th>
     </thead>
     <tbody id="tbStudent">
-    <tr>
-        <td>1</td>
-        <td>张三</td>
-        <td>男</td>
-        <td>2019-05-28</td>
-        <td>281339785@qq.com</td>
-        <td>4</td>
-        <td>2</td>
-        <td>13303947277</td>
-        <td>计算机科学与技术</td>
-        <td>
-            <a href="#">编辑</a>
-            <a href="#">删除</a>
-        </td>
-    </tr>
+    <!--<tr>-->
+        <!--<td>1</td>-->
+        <!--<td>张三</td>-->
+        <!--<td>男</td>-->
+        <!--<td>2019-05-28</td>-->
+        <!--<td>281339785@qq.com</td>-->
+        <!--<td>4</td>-->
+        <!--<td>2</td>-->
+        <!--<td>13303947277</td>-->
+        <!--<td>计算机科学与技术</td>-->
+        <!--<td>-->
+            <!--<a href="#">编辑</a>-->
+            <!--<a href="#">删除</a>-->
+        <!--</td>-->
+    <!--</tr>-->
     </tbody>
 </table>
 </body>
