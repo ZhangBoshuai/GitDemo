@@ -9,5 +9,4 @@ public interface MajorMapper extends tk.mybatis.mapper.common.Mapper<Major> {
 
     Major findFirstByMajorId(@Param("majorId")Integer majorId);
 
-
 }

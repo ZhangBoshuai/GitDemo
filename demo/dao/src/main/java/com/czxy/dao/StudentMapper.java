@@ -7,7 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper extends tk.mybatis.mapper.common.Mapper<Student> {
+
     List<Student> findByAll(Student student);
+
     int insertSelective(@Param("student")Student student);
 
 }
