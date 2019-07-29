@@ -20,6 +20,7 @@ public class MajorServiceImpl implements MajorService{
 	}
 
 
+
 	@Resource
     private MajorMapper majorMapper;
 

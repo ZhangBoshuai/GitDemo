@@ -10,4 +10,8 @@ public interface MajorService{
 
 
     void del(Integer majorId);
+
+
+
+
 }
