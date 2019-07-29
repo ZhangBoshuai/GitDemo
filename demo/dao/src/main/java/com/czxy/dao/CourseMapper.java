@@ -8,7 +8,4 @@ import java.util.List;
 public interface CourseMapper extends tk.mybatis.mapper.common.Mapper<Course> {
     List<Course> findByAll(Course course);
 
-
-
-
 }

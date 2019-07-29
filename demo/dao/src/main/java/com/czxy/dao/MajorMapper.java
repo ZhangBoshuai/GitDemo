@@ -1,10 +1,9 @@
 package com.czxy.dao;
-import java.util.List;
-import com.czxy.domain.College;
-import org.apache.ibatis.annotations.Param;
-
 import com.czxy.domain.Major;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 @Mapper
 public interface MajorMapper extends tk.mybatis.mapper.common.Mapper<Major> {
