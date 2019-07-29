@@ -14,6 +14,14 @@ public class StudentServiceImpl implements StudentService{
 		 return studentMapper.findByAll(student);
 	}
 
+	@Override
+	public int insertSelective(Student student){
+		 return studentMapper.insertSelective(student);
+	}
+
+
+
+
 
 
 

@@ -10,4 +10,9 @@ public interface StudentService{
 
 
 
+	int insertSelective(Student student);
+
+
+
+
 }
