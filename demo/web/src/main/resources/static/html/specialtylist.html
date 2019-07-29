@@ -3,6 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <title>当前专业信息</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            findByAll()
+        })
+        function findByAll() {
+            $.ajax({
+                url:"/major",
+                type:"get",
+                dataType:"json",
+                statusCode:{
+                    200:function (ele) {
+                        $("#tbStudent").html("")
+                        $(ele).each(function (i, data) {
+                            $("#tbStudent").append("  <tr>\n" +
+                                "        <td>"+data.majorId+"</td>\n" +
+                                "        <td>"+data.majorName+"</td>\n" +
+                                "        <td>"+data.majorDescribe+"</td>\n" +
+                                "        <td>"+data.college.college+"</td>\n" +
+                                "        <td>\n" +
+                                "            <a href=\"#\">编辑</a>\n" +
+                                "            <a href=\"javascript:del("+data.majorId+")\">删除</a>\n" +
+                                "        </td>\n" +
+                                "    </tr>")
+                        })
+                    },
+                    500:function () {
+                        alert("11")
+                    }
+                }
+            })
+        }
+        function del(majorId) {
+            $.ajax({
+                url:"/major/del/"+majorId,
+                type:"delete",
+                dataType:"json",
+                statusCode:{
+                    204:function () {
+                      findByAll()
+                    },
+                    500:function () {
+                        alert("11")
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 <h1>当前专业信息</h1>
