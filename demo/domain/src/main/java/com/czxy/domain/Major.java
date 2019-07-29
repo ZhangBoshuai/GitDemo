@@ -19,4 +19,6 @@ public class Major {
 
     @Column(name = "college_cid")
     private Integer collegeCid;
+
+    private College college;
 }
