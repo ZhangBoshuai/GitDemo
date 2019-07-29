@@ -1,7 +1,11 @@
 package com.czxy.domain;
 
-import javax.persistence.*;
 import lombok.Data;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "course")
@@ -49,4 +53,6 @@ public class Course {
      */
     @Column(name = "college_id")
     private Integer collegeId;
+
+    private College college;
 }

@@ -4,17 +4,46 @@
     <meta charset="UTF-8">
     <title>所有课程信息</title>
     <!--jquery-->
-    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery-3.3.1.min.js"></script>
     <!--获取form表单-->
-    <script src="js/form2json.js"></script>
+    <script src="../js/form2json.js"></script>
     <!--图片上传回显-->
-    <script src="js/imgEcho.js"></script>
+    <script src="../js/imgEcho.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url:"/course/findAll",
+                type:"GET",
+                dataType:"json",
+                success:function (data) {
+                    $(data).each(function (index,ele) {
+                        $("#t01").append(
+                            " <tr>\n" +
+                            "        <td>"+ele.courseCid+"</td>\n" +
+                            "        <td>"+ele.courseName+"</td>\n" +
+                            "        <td>"+ele.courseCredit+"</td>\n" +
+                            "        <td>"+ele.courseTime+"</td>\n" +
+                            "        <td>"+ele.courseDepict+"</td>\n" +
+                            "        <td>"+ele.courseRequired+"</td>\n" +
+                            "        <td>"+ele.college.collegeName+"</td>\n" +
+                            "        <td>\n" +
+                            "            <a href=\"#\">编辑</a>\n" +
+                            "            <a href=\"#\">删除</a>\n" +
+                            "        </td>\n" +
+                            "    </tr>"
+                        )
+                    })
+
+                }
+            })
+        })
+    </script>
 </head>
 <body>
 <h1>当前课程信息</h1>
 <hr>
 <hr>
-<table border="1">
+<table border="1" id="t01">
     <thead>
     <th>ID</th>
     <th>课程名称</th>
@@ -26,19 +55,19 @@
     <th>操作</th>
     </thead>
     <tbody id="tbStudent">
-    <tr>
-        <td>11</td>
-        <td>大数据</td>
-        <td>5</td>
-        <td>40</td>
-        <td>很严重的</td>
-        <td>必修</td>
-        <td>计算机工程学院</td>
-        <td>
-            <a href="#">编辑</a>
-            <a href="#">删除</a>
-        </td>
-    </tr>
+    <!--<tr>-->
+        <!--<td>11</td>-->
+        <!--<td>大数据</td>-->
+        <!--<td>5</td>-->
+        <!--<td>40</td>-->
+        <!--<td>很严重的</td>-->
+        <!--<td>必修</td>-->
+        <!--<td>计算机工程学院</td>-->
+        <!--<td>-->
+            <!--<a href="#">编辑</a>-->
+            <!--<a href="#">删除</a>-->
+        <!--</td>-->
+    <!--</tr>-->
     </tbody>
 </table>
 </body>
