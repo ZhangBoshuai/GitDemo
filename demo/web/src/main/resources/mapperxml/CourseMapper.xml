@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czxy.dao.CourseMapper">
+  <resultMap id="BaseResultMap" type="com.czxy.domain.Course">
+    <!--@mbg.generated generated on Mon Jul 29 16:17:36 CST 2019.-->
+    <id column="course_cid" jdbcType="INTEGER" property="courseCid" />
+    <result column="course_name" jdbcType="VARCHAR" property="courseName" />
+    <result column="course_credit" jdbcType="INTEGER" property="courseCredit" />
+    <result column="course_time" jdbcType="INTEGER" property="courseTime" />
+    <result column="course_depict" jdbcType="VARCHAR" property="courseDepict" />
+    <result column="course_required" jdbcType="VARCHAR" property="courseRequired" />
+    <result column="college_id" jdbcType="INTEGER" property="collegeId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Mon Jul 29 16:17:36 CST 2019.-->
+    course_cid, course_name, course_credit, course_time, course_depict, course_required, 
+    college_id
+  </sql>
+</mapper>

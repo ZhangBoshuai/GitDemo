@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加课程</title>
+</head>
+<body>
+<h1>添加课程</h1>
+<hr>
+<hr>
+<form id="addForm">
+    课程名称:<input type="text" id="username" name="username" placeholder="请输入"><br>
+    课程类型:<input type="radio" id="man" name="courseType" value="必修">必修<input type="radio" id="woman" name="courseType" value="选修">选修<br>
+    课程学时;<input type="text" name="time" id="time"><br>
+    课程学分;<input type="text" name="time" id="math"><br>
+    设立学院:<select name="所属学院" id="所属学院">
+    <option value="计算机工程学院">计算机工程学院</option>
+    <option value="大数据工程学院">大数据工程学院</option>
+</select>
+    <br>
+    课程描述:<textarea id="rearmk" name="rearmk" placeholder="请输入内容"></textarea><br>
+    <input type="button" id="add" value="添加"> <input type="reset" name="button" id="caln" value="重置" />
+
+</form>
+</body>
+</html>

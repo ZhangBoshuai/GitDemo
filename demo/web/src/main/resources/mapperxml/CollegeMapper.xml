@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czxy.dao.CollegeMapper">
+  <resultMap id="BaseResultMap" type="com.czxy.domain.College">
+    <!--@mbg.generated generated on Mon Jul 29 16:17:36 CST 2019.-->
+    <id column="college_id" jdbcType="INTEGER" property="collegeId" />
+    <result column="college_name" jdbcType="VARCHAR" property="collegeName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Mon Jul 29 16:17:36 CST 2019.-->
+    college_id, college_name
+  </sql>
+</mapper>

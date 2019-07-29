@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>所有学生信息</title>
+    <!--jquery-->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!--获取form表单-->
+    <script src="js/form2json.js"></script>
+    <!--图片上传回显-->
+    <script src="js/imgEcho.js"></script>
+</head>
+<body>
+<h1>当前学生信息</h1>
+<form id="searchForm">
+    查询学生:<input type="text" id="用户名姓名" name="用户名姓名"> <input type="button" value="查询" name="button">
+</form>
+<hr>
+<hr>
+<table border="1">
+    <thead>
+    <th>ID</th>
+    <th>姓名</th>
+    <th>性别</th>
+    <th>出生日期</th>
+    <th>邮箱地址</th>
+    <th>学期</th>
+    <th>学年</th>
+    <th>电话</th>
+    <th>专业</th>
+    <th>操作</th>
+    </thead>
+    <tbody id="tbStudent">
+    <tr>
+        <td>1</td>
+        <td>张三</td>
+        <td>男</td>
+        <td>2019-05-28</td>
+        <td>281339785@qq.com</td>
+        <td>4</td>
+        <td>2</td>
+        <td>13303947277</td>
+        <td>计算机科学与技术</td>
+        <td>
+            <a href="#">编辑</a>
+            <a href="#">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
