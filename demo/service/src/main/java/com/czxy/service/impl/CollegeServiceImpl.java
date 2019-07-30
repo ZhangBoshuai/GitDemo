@@ -11,10 +11,6 @@ import java.util.List;
 @Service
 public class CollegeServiceImpl implements CollegeService {
 
-	@Override
-	public List<College> findByCollegeId(Integer collegeId){
-		 return collegeMapper.findByCollegeId(collegeId);
-	}
 
 	@Override
 	public void insertCollege(College college) {
