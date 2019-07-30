@@ -2,6 +2,7 @@ package com.czxy.controller;
 
 import com.czxy.domain.Major;
 import com.czxy.domain.Student;
+import com.czxy.domain.StudentVo;
 import com.czxy.service.MajorService;
 import com.czxy.service.StudentService;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,41 @@ public class StudentController {
     private StudentService studentService;
     @Resource
     private MajorService majorService;
+
+
+    /**
+     * 编辑功能
+     */
+    @PutMapping("/edit")
+    public ResponseEntity<Void> edit(Student student){
+        try {
+            studentService.updateByStudentId(student,student.getStudentId());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
+    /**
+     *编辑回显
+     */
+    @GetMapping("/editShow/{sid}")
+    public ResponseEntity<StudentVo> editShow(@PathVariable Integer sid){
+        try {
+            Student student = studentService.findByStudentId(sid);
+            List<Major> majorList = majorService.findByAll(null);
+            StudentVo studentVo=new StudentVo();
+            studentVo.setMajorList(majorList);
+            studentVo.setStudent(student);
+            return ResponseEntity.ok(studentVo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 
 
     /**

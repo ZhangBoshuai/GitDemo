@@ -73,6 +73,7 @@ public class Student {
     private Major major;
 
     /**
+     *
      * 描述
      */
     @Column(name = "student_describe")

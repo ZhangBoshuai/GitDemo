@@ -23,6 +23,16 @@ public interface StudentService{
 
 
 
+	Student findByStudentId(Integer studentId);
+
+
+
+	int updateByStudentId(Student updated,Integer studentId);
+
+
+
+
+
 
 
 

@@ -34,6 +34,22 @@ public class StudentServiceImpl implements StudentService{
 		 return studentMapper.deleteByStudentId(studentId);
 	}
 
+	@Override
+	public Student findByStudentId(Integer studentId){
+		 return studentMapper.findByStudentId(studentId);
+	}
+
+	@Override
+	public int updateByStudentId(Student updated,Integer studentId){
+		 return studentMapper.updateByStudentId(updated,studentId);
+	}
+
+
+
+
+
+
+
 
 
 
