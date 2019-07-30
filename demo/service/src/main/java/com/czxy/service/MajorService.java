@@ -13,4 +13,8 @@ public interface MajorService{
 
 
     void add(Major major);
+
+    Major findByMajor(Integer majorId);
+
+    void updateByMajor(Major major);
 }

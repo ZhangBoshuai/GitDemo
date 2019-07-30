@@ -27,6 +27,17 @@ public class MajorServiceImpl implements MajorService{
         majorMapper.insert(major);
     }
 
+	@Override
+	public Major findByMajor(Integer majorId) {
+		Major major = majorMapper.selectByPrimaryKey(majorId);
+		return major;
+	}
+
+	@Override
+	public void updateByMajor(Major major) {
+		majorMapper.updateByPrimaryKey(major);
+	}
+
 
 	@Resource
     private MajorMapper majorMapper;
