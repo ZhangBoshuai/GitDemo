@@ -19,6 +19,15 @@ public interface StudentService{
 
 
 
+	int deleteByStudentId(Integer studentId);
+
+
+
+
+
+
+
+
 
 
 }

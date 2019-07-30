@@ -29,6 +29,19 @@ public class StudentServiceImpl implements StudentService{
 		}
 	}
 
+	@Override
+	public int deleteByStudentId(Integer studentId){
+		 return studentMapper.deleteByStudentId(studentId);
+	}
+
+
+
+
+
+
+
+
+
 
 
 

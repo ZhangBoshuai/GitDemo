@@ -13,6 +13,10 @@
     <script>
 
         $(function () {
+           findAll()
+        })
+
+        function findAll() {
             $.ajax({
                 url:'/student/findAllStu',
                 type:'get',
@@ -31,16 +35,30 @@
                             "        <td>"+s.major.majorName+"</td>\n" +
                             "        <td>\n" +
                             "            <a href=\"#\">编辑</a>\n" +
-                            "            <a href=\"#\">删除</a>\n" +
+                            "            <a href='javascript:del(\""+s.studentId+"\")'>删除</a>\n" +
                             "        </td>\n" +
                             "    </tr>")
                     })
                 }
-
             })
+        }
 
-        })
-
+        function del(sid) {
+            $.ajax({
+                url:'/student/del/'+sid,
+                type:'DELETE',
+                dataType:'json',
+                statusCode:{
+                    204:function () {
+                        $("#tbStudent").html("")
+                        findAll()
+                    },
+                    500:function () {
+                        alert("删除失败")
+                    }
+                }
+            })
+        }
     </script>
 
 </head>
