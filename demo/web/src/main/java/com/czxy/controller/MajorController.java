@@ -15,6 +15,12 @@ public class MajorController {
     @Resource
     private MajorService majorService;
 
+    @PostMapping
+    public ResponseEntity<Object> add(Major major) {
+        majorService.add(major);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @DeleteMapping("del/{majorId}")
     public ResponseEntity<Object> del(@PathVariable Integer majorId){
         majorService.del(majorId);

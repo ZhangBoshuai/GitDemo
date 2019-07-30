@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import com.czxy.dao.MajorMapper;
 import com.czxy.service.MajorService;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
+@Transactional
 public class MajorServiceImpl implements MajorService{
 
 	@Override
@@ -19,6 +22,10 @@ public class MajorServiceImpl implements MajorService{
 		majorMapper.deleteByPrimaryKey(majorId);
 	}
 
+    @Override
+    public void add(Major major) {
+        majorMapper.insert(major);
+    }
 
 
 	@Resource
