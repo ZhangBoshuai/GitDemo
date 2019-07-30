@@ -12,4 +12,8 @@ public interface StudentMapper extends tk.mybatis.mapper.common.Mapper<Student> 
 
     int insertSelective(@Param("student")Student student);
 
+    List<Student> findByStudentName(@Param("studentName")String studentName);
+
+
+
 }
