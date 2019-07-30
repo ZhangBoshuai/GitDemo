@@ -3,14 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>添加学院</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+    <script>
+
+        function add() {
+
+            var name = $("#username").val()
+
+            if (name == null || name=="") {
+                alert("学院名不能为空！")
+                return
+            } else {
+
+
+                var df = $("#addForm").formToJson()
+                $.ajax({
+                    url: "/college/addCollege",
+                    type: "GET",
+                    dataType: "json",
+                    data: df,
+                    statusCode: {
+                        201: function () {
+                            alert("添加成功")
+                        },
+                        500: function () {
+                            alert("添加失败")
+                        }
+                    }
+                })
+            }
+        }
+    </script>
 </head>
 <body>
 <h1>添加学院</h1>
 <hr>
 <hr>
 <form id="addForm">
-    学院名称:<input type="text" id="username" name="username" placeholder="请输入"><br>
-    <input type="button" id="add" value="添加"> <input type="reset" name="button" id="caln" value="重置" />
+    学院名称:<input type="text" id="username" name="collegeName" placeholder="请输入"><br>
+    <input type="button" onclick="add()" value="添加">
 
 </form>
 </body>

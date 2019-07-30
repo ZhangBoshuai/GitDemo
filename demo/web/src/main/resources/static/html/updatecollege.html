@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>修改学院</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+    <script>
+
+
+        $(function () {
+            var url = decodeURI(location.href)
+            var ss = url.split("?url=")
+
+            $.ajax({
+                url:"/college/findOneCollege/"+ss[1],
+                type:"GET",
+                dataType:"json",
+                statusCode:{
+                    200:function (data) {
+                        $("#collegeId").val(data.collegeId)
+                        $("#username").val(data.collegeName)
+                    }
+                }
+            })
+        })
+
+        function update() {
+
+
+
+            var name = $("#username").val()
+
+            if (name == null || name=="") {
+                alert("学院名不能为空！")
+                return
+            } else {
+
+                var df = $("#addForm").formToJson()
+                $.ajax({
+                    url: "/college/updateCollege",
+                    type: "PUT",
+                    dataType: "json",
+                    data: df,
+                    statusCode: {
+                        204: function () {
+                            location.href="/html/collegelist.html"
+                        },
+                        500: function () {
+                            alert("修改失败")
+                        }
+                    }
+                })
+            }
+        }
+    </script>
+</head>
+<body>
+<h1>修改学院信息</h1>
+<hr>
+<hr>
+<form id="addForm">
+    <input type="hidden" id="collegeId" name="collegeId" value="">
+    学院名称:<input type="text" id="username" name="collegeName" placeholder="请输入"><br>
+    <input type="button" onclick="update()" value="保存">
+
+</form>
+</body>
+</html>

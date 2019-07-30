@@ -15,6 +15,24 @@ public class MajorController {
     @Resource
     private MajorService majorService;
 
+    @PutMapping("/updateByMajor")
+    public ResponseEntity<Object> updateByMajor(Major major) {
+        majorService.updateByMajor(major);
+        return new ResponseEntity<>(HttpStatus.RESET_CONTENT);
+    }
+
+    @PostMapping
+    public ResponseEntity<Object> add(Major major) {
+        majorService.add(major);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/findByMajor/{majorId}")
+    public ResponseEntity<Major> findByMajor(@PathVariable Integer majorId) {
+        Major byMajor = majorService.findByMajor(majorId);
+        return ResponseEntity.ok(byMajor);
+    }
+
     @DeleteMapping("del/{majorId}")
     public ResponseEntity<Object> del(@PathVariable Integer majorId){
         majorService.del(majorId);

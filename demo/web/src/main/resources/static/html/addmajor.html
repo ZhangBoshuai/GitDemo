@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置专业</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: "/college/findAllCollege",
+                type: "get",
+                dataType: "json",
+                statusCode: {
+                    200: function (ele) {
+                        $("#collegeCid").html("")
+                        $(ele).each(function (i, data) {
+                            $("#collegeCid").append("<option value=\"" + data.collegeId + "\">" + data.collegeName + "</option>")
+                        })
+                    },
+                    500: function () {
+                    }
+                }
+            })
+        })
+
+        function mysubmit() {
+            var formToJson = $("#addForm").formToJson();
+            $.ajax({
+                url: "/major",
+                type: "post",
+                data: formToJson,
+                statusCode: {
+                    201: function () {
+                        location.href = "majorlist.html"
+                    },
+                    500: function () {
+                        $("#s01").html("添加失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<h1>专业设置</h1>
+<hr>
+<hr>
+<form id="addForm">
+    专业名称:<input type="text" id="majorName" name="majorName" placeholder="请输入"><br>
+    设立学院:<select name="collegeCid" id="collegeCid">
+    <option value="1">计算机工程学院</option>
+    <option value="2">大数据工程学院</option>
+</select>
+    <br>
+    专业描述:<textarea id="majorDescribe" name="majorDescribe" placeholder="请输入内容"></textarea><br>
+    <input type="button" id="add" onclick="mysubmit()" value="添加"> <input type="reset" name="button" id="caln"
+                                                                          value="重置"/>
+    <span id="s01"></span>
+</form>
+</body>
+</html>

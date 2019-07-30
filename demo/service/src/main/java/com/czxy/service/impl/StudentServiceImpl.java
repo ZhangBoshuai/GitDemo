@@ -1,11 +1,11 @@
 package com.czxy.service.impl;
-import java.util.List;
-import com.czxy.domain.Student;
-
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import com.czxy.dao.StudentMapper;
+import com.czxy.domain.Student;
 import com.czxy.service.StudentService;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService{
 
@@ -18,6 +18,19 @@ public class StudentServiceImpl implements StudentService{
 	public int insertSelective(Student student){
 		 return studentMapper.insertSelective(student);
 	}
+
+	@Override
+	public Student findByStudentName(String studentName){
+		List<Student> stulist = studentMapper.findByStudentName(studentName);
+		if (stulist.isEmpty()){
+			return null;
+		}else {
+			return stulist.get(0);
+		}
+	}
+
+
+
 
 
 
