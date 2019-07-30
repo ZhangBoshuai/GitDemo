@@ -15,4 +15,9 @@ public interface CollegeService{
 	List<College>  findAllCollege();
 
 
+	void delCollege(String collegeId);
+
+	void updateCollege(College college);
+
+	College findOneCollege( String collegeId);
 }

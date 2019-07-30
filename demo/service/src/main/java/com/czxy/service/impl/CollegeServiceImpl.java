@@ -26,8 +26,23 @@ public class CollegeServiceImpl implements CollegeService {
 		return collegeMapper.selectAll();
 	}
 
+    @Override
+    public void delCollege(String collegeId) {
+        collegeMapper.deleteByPrimaryKey(collegeId);
+    }
 
-	@Resource
+    @Override
+    public void updateCollege(College college) {
+        collegeMapper.updateByPrimaryKey(college);
+    }
+
+    @Override
+    public College findOneCollege(String collegeId) {
+        return collegeMapper.selectByPrimaryKey(collegeId);
+    }
+
+
+    @Resource
     private CollegeMapper collegeMapper;
 
 }

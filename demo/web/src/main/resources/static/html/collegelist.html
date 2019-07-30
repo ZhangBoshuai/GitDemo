@@ -3,6 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>当前学院信息</title>
+
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+
+    <script>
+
+        function findAllCollege(){
+            $.ajax({
+                url:"/college/findAllCollege",
+                type:"GET",
+                dataType:"json",
+                statusCode:{
+                    200:function (data) {
+                        $.each(data,function (index, college) {
+                            $("#tbStudent").append("<tr>\n" +
+                                "        <td>"+college.collegeId+"</td>\n" +
+                                "        <td>"+college.collegeName+"</td>\n" +
+                                "        <td>\n" +
+                                "            <a href=\"/html/updatecollege.html?url="+college.collegeId+"\">编辑</a>\n" +
+                                "            <a href=\"javascript:del("+college.collegeId+")\">删除</a>\n" +
+                                "        </td>\n" +
+                                "    </tr>")
+                        })
+                    },
+                    500:function () {
+                        alert("网路延迟，请稍后")
+                    }
+                }
+            })
+        }
+
+        $(function () {
+           findAllCollege()
+        })
+        
+        function del(id) {
+            url:"/college/del/"
+            $.ajax({
+                url:"/college/del/"+id,
+                type:"DELETE",
+                statusCode:{
+                    204:function () {
+
+                        $("#tbStudent").html("")
+                        findAllCollege()
+                    },
+                    500:function () {
+                        alert("删除失败")
+                    }
+                }
+
+            })
+        }
+
+    </script>
+
 </head>
 <body>
 <h1>当前学院信息</h1>
@@ -15,14 +71,7 @@
     <th>操作</th>
     </thead>
     <tbody id="tbStudent">
-    <tr>
-        <td>5225</td>
-        <td>计算机工程学院</td>
-        <td>
-            <a href="#">编辑</a>
-            <a href="#">删除</a>
-        </td>
-    </tr>
+
     </tbody>
 </table>
 <hr>
