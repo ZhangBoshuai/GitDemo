@@ -7,6 +7,9 @@ import java.util.List;
 
 @Mapper
 public interface StudentMapper extends tk.mybatis.mapper.common.Mapper<Student> {
+    List<Student> findByStudentNameLike(@Param("likeStudentName")String likeStudentName);
+
+
 
     int updateByStudentId(@Param("updated")Student updated,@Param("studentId")Integer studentId);
 

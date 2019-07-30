@@ -20,6 +20,21 @@ public class StudentController {
     @Resource
     private MajorService majorService;
 
+    /**
+     * 模糊查询功能
+     */
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Student>> search(Student student){
+        try {
+            List<Student> studentList = studentService.findByStudentNameLike(student.getStudentName());
+            return ResponseEntity.ok(studentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 
     /**
      * 编辑功能

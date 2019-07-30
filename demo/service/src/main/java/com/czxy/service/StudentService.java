@@ -7,6 +7,7 @@ public interface StudentService{
 
 
 
+
 	List<Student> findByAll(Student student);
 
 
@@ -28,6 +29,11 @@ public interface StudentService{
 
 
 	int updateByStudentId(Student updated,Integer studentId);
+
+
+
+	List<Student> findByStudentNameLike(String likeStudentName);
+
 
 
 
