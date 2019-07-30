@@ -1,11 +1,11 @@
 package com.czxy.service.impl;
-import com.czxy.dao.CollegeMapper;
+import java.util.List;
 import com.czxy.domain.College;
+import com.czxy.dao.CollegeMapper;
 import com.czxy.service.CollegeService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service
 public class CollegeServiceImpl implements CollegeService {
@@ -18,7 +18,12 @@ public class CollegeServiceImpl implements CollegeService {
 
 
 
+
+
     @Resource
     private CollegeMapper collegeMapper;
+
+
+
 
 }
