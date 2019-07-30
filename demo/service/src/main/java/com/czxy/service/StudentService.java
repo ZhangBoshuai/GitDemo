@@ -1,6 +1,7 @@
 package com.czxy.service;
-import java.util.List;
 import com.czxy.domain.Student;
+
+import java.util.List;
 
 public interface StudentService{
 
@@ -11,6 +12,11 @@ public interface StudentService{
 
 
 	int insertSelective(Student student);
+
+
+
+	Student findByStudentName(String studentName);
+
 
 
 
