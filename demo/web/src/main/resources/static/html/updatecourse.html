@@ -41,6 +41,25 @@
                 }
             })
         })
+
+        function mysubmit() {
+           var fd= $("#addForm").formToJson()
+            $.ajax({
+                url:"/course/edit",
+                type:"PUT",
+                dataType:"json",
+                data:fd,
+                statusCode:{
+                    204:function () {
+                        location.href="/html/courselist.html"
+                    },
+                    500:function () {
+                        alert("亲：抱歉您当前网络不佳，请稍后再试")
+                    }
+                }
+            })
+
+        }
     </script>
 </head>
 <body>
@@ -48,16 +67,16 @@
     <input type="hidden" name="courseCid" id="courseCid">
     课程名称:<input type="text" id="courseName" name="courseName" placeholder="请输入"><br>
     课程类型:<input type="radio" id="courseRequired" name="courseRequired" value="必修">必修<input type="radio" id="woman"
-                                                                                           name="courseType"
+                                                                                           name="courseRequired"
                                                                                            value="选修">选修<br>
     课程学时;<input type="text" name="courseTime" id="courseTime"><br>
     课程学分;<input type="text" name="courseCredit" id="courseCredit"><br>
-    设立学院:<select name="college" id="collegeCid">
+    设立学院:<select name="collegeId" id="collegeCid">
     <!--<option value="大数据工程学院">大数据工程学院</option>-->
 </select>
     <br>
     专业描述:<textarea id="courseDepict" name="courseDepict" placeholder="请输入内容"></textarea><br>
-    <input type="button" id="add" onclick="mysubmit()" value="修改"> <input type="reset" name="button" id="caln"
+    <input type="button"  onclick="mysubmit()" value="修改"> <input type="reset" name="button" id="caln"
                                                                           value="重置"/>
     <span id="s01"></span>
 </form>

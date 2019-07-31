@@ -29,6 +29,14 @@ public class CourseServiceImpl implements CourseService{
 		 return courseMapper.findByCourseCid(courseCid);
 	}
 
+	@Override
+	public int updateByCourseCid(Course updated,Integer courseCid){
+		 return courseMapper.updateByCourseCid(updated,courseCid);
+	}
+
+
+
+
 
 
 

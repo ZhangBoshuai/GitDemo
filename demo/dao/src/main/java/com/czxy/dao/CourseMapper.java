@@ -18,6 +18,10 @@ public interface CourseMapper extends tk.mybatis.mapper.common.Mapper<Course> {
 
     Course findByCourseCid(@Param("courseCid")Integer courseCid);
 
+    int updateByCourseCid(@Param("updated")Course updated,@Param("courseCid")Integer courseCid);
+
+
+
 
 
 

@@ -22,6 +22,11 @@ public interface CourseService{
 
 
 
+	int updateByCourseCid(Course updated,Integer courseCid);
+
+
+
+
 
 
 

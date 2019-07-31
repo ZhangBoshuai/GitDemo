@@ -67,6 +67,12 @@ public class CourseController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * 根据id  编辑回显功能
+     * @param cid
+     * @return
+     */
     @GetMapping("/editShow/{cid}")
     public ResponseEntity<CourseVo>editShow(@PathVariable Integer cid) {
         try {
@@ -82,4 +88,20 @@ public class CourseController {
         }
     }
 
+    /**
+     * 根据对象 ，对象id'  实现编辑回显功能
+     * @param course
+     * @return
+     */
+    @PutMapping("/edit")
+    public ResponseEntity<Void>edit(Course course){
+        try {
+            courseService.updateByCourseCid(course,course.getCourseCid());
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
