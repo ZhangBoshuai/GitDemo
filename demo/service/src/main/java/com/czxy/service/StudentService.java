@@ -7,6 +7,7 @@ public interface StudentService{
 
 
 
+
 	List<Student> findByAll(Student student);
 
 
@@ -16,6 +17,30 @@ public interface StudentService{
 
 
 	Student findByStudentName(String studentName);
+
+
+
+	int deleteByStudentId(Integer studentId);
+
+
+
+	Student findByStudentId(Integer studentId);
+
+
+
+	int updateByStudentId(Student updated,Integer studentId);
+
+
+
+	List<Student> findByStudentNameLike(String likeStudentName);
+
+
+
+
+
+
+
+
 
 
 

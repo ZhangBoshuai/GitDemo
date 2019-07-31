@@ -13,6 +13,10 @@
     <script>
 
         $(function () {
+           findAll()
+        })
+
+        function findAll() {
             $.ajax({
                 url:'/student/findAllStu',
                 type:'get',
@@ -30,16 +34,62 @@
                             "        <td>"+s.studentPhone+"</td>\n" +
                             "        <td>"+s.major.majorName+"</td>\n" +
                             "        <td>\n" +
-                            "            <a href=\"#\">编辑</a>\n" +
-                            "            <a href=\"#\">删除</a>\n" +
+                            "            <a href='editstudent.html?sid="+s.studentId+"'>编辑</a>\n" +
+                            "            <a href='javascript:del(\""+s.studentId+"\")'>删除</a>\n" +
                             "        </td>\n" +
                             "    </tr>")
                     })
                 }
-
             })
+        }
 
-        })
+        function del(sid) {
+            $.ajax({
+                url:'/student/del/'+sid,
+                type:'DELETE',
+                dataType:'json',
+                statusCode:{
+                    204:function () {
+                        $("#tbStudent").html("")
+                        findAll()
+                    },
+                    500:function () {
+                        alert("删除失败")
+                    }
+                }
+            })
+        }
+
+        function search() {
+
+           var ft=$("#searchForm").formToJson()
+            $.ajax({
+                url:'/student/search',
+                data:ft,
+                type:'get',
+                dataType:'json',
+                success:function (data) {
+                    $("#tbStudent").html("")
+                    $(data).each(function (index, s) {
+                        $("#tbStudent").append("<tr>\n" +
+                            "        <td>"+s.studentId+"</td>\n" +
+                            "        <td>"+s.studentName+"</td>\n" +
+                            "        <td>"+s.studentSex+"</td>\n" +
+                            "        <td>"+s.studentBirthday+"</td>\n" +
+                            "        <td>"+s.studentEmail+"</td>\n" +
+                            "        <td>"+s.studentYear+"</td>\n" +
+                            "        <td>"+s.studentSemester+"</td>\n" +
+                            "        <td>"+s.studentPhone+"</td>\n" +
+                            "        <td>"+s.major.majorName+"</td>\n" +
+                            "        <td>\n" +
+                            "            <a href='editstudent.html?sid="+s.studentId+"'>编辑</a>\n" +
+                            "            <a href='javascript:del(\""+s.studentId+"\")'>删除</a>\n" +
+                            "        </td>\n" +
+                            "    </tr>")
+                    })
+                }
+            })
+        }
 
     </script>
 
@@ -47,7 +97,7 @@
 <body>
 <h1>当前学生信息</h1>
 <form id="searchForm">
-    查询学生:<input type="text" id="用户名姓名" name="用户名姓名"> <input type="button" value="查询" name="button">
+    查询学生:<input type="text" id="studentName" name="studentName"> <input type="button" onclick="search()" value="查询" name="button">
 </form>
 <hr>
 <hr>
