@@ -9,6 +9,8 @@ import java.util.List;
 @Service
 public class StudentServiceImpl implements StudentService{
 
+
+
 	@Override
 	public List<Student> findByAll(Student student){
 		 return studentMapper.findByAll(student);
@@ -28,6 +30,43 @@ public class StudentServiceImpl implements StudentService{
 			return stulist.get(0);
 		}
 	}
+
+	@Override
+	public int deleteByStudentId(Integer studentId){
+		 return studentMapper.deleteByStudentId(studentId);
+	}
+
+	@Override
+	public Student findByStudentId(Integer studentId){
+		 return studentMapper.findByStudentId(studentId);
+	}
+
+	@Override
+	public int updateByStudentId(Student updated,Integer studentId){
+		 return studentMapper.updateByStudentId(updated,studentId);
+	}
+
+	@Override
+	public List<Student> findByStudentNameLike(String likeStudentName){
+		 return studentMapper.findByStudentNameLike(likeStudentName);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
