@@ -11,6 +11,10 @@
     <script src="../js/imgEcho.js"></script>
     <script>
         $(function () {
+          findAll()
+        })
+
+        function findAll() {
             $.ajax({
                 url:"/course/findAll",
                 type:"GET",
@@ -27,8 +31,8 @@
                             "        <td>"+ele.courseRequired+"</td>\n" +
                             "        <td>"+ele.college.collegeName+"</td>\n" +
                             "        <td>\n" +
-                            "            <a href=\"#\">编辑</a>\n" +
-                            "            <a href=\"#\">删除</a>\n" +
+                            "            <a href=\"updatecourse.html?cid="+ele.courseCid+"\">编辑</a>\n" +
+                            "            <a href='javascript:del(\""+ele.courseCid+"\")'>删除</a>\n" +
                             "        </td>\n" +
                             "    </tr>"
                         )
@@ -36,7 +40,25 @@
 
                 }
             })
-        })
+        }
+        function del(cid) {
+            alert(cid)
+            $.ajax({
+                url:"/course/del/"+cid,
+                type:"DELETE",
+                dataType:'json',
+                statusCode: {
+                    204: function () {
+                        $("#t01").html("")
+                        findAll()
+                    },
+                    500: function () {
+                        alert(" 亲 ： 您当前网络不佳，请稍后再试")
+                    }
+                }
+            })
+
+        }
     </script>
 </head>
 <body>

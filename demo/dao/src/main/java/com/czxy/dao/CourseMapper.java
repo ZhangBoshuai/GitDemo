@@ -10,7 +10,18 @@ public interface CourseMapper extends tk.mybatis.mapper.common.Mapper<Course> {
 
     List<Course> findByAll(Course course);
 
-    List<Course> findByCollegeId(@Param("collegeId")Integer collegeId);
+
+    int insertSelective(@Param("course")Course course);
+
+
+   int deleteByCourseCid(@Param("courseCid")Integer courseCid);
+
+    Course findByCourseCid(@Param("courseCid")Integer courseCid);
+
+
+
+
+
 
 
 }

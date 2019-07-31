@@ -10,6 +10,23 @@ public interface CourseService{
 
 
 
+	int insertSelective(Course course);
+
+
+
+	int deleteByCourseCid(Integer courseCid);
+
+
+
+	Course findByCourseCid(Integer courseCid);
+
+
+
+
+
+
+
+
 
 
 }

@@ -1,12 +1,12 @@
 package com.czxy.service.impl;
-import java.util.List;
-import com.czxy.domain.Major;
-
-import org.springframework.stereotype.Service;
-import javax.annotation.Resource;
 import com.czxy.dao.MajorMapper;
+import com.czxy.domain.Major;
 import com.czxy.service.MajorService;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 @Transactional

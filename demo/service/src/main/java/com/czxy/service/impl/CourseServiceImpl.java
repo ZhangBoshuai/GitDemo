@@ -14,6 +14,33 @@ public class CourseServiceImpl implements CourseService{
 		 return courseMapper.findByAll(course);
 	}
 
+	@Override
+	public int insertSelective(Course course){
+		 return courseMapper.insertSelective(course);
+	}
+
+	@Override
+	public int deleteByCourseCid(Integer courseCid){
+		 return courseMapper.deleteByCourseCid(courseCid);
+	}
+
+	@Override
+	public Course findByCourseCid(Integer courseCid){
+		 return courseMapper.findByCourseCid(courseCid);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
