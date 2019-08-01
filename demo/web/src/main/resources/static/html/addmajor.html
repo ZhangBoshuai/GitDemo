@@ -80,29 +80,52 @@
 
         });
     </script>
+
+    <script>
+        $(function () {
+            findByCollegeAll()
+        })
+
+        function findByCollegeAll() {
+            $.ajax({
+                url: "/c/findAllCollege",
+                type: "get",
+                dataType: "json",
+                statusCode: {
+                    200: function (ele) {
+                        $("#collegeCid").html(" <option value=\"\">请选择学院</option>")
+                        $(ele).each(function (i, data) {
+                            $("#collegeCid").append("<option value=\"" + data.collegeId + "\">" + data.collegeName + "</option>")
+                        })
+                    },
+                    500: function () {
+                        alert("1111")
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
-<h1>添加课程</h1>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="add">
+    <b>添加专业信息</b> <br><br>
+</div>
 
-<form class="layui-form" action="">
+<form class="layui-form" id="myform" action="">
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="majorName" id="majorName" lay-verify="required" placeholder="课程名称"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名称</label>
+        <label class="layui-form-label">课程描述</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="majorDescribe" id="majorDescribe" lay-verify="required" placeholder="课程描述"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -110,11 +133,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">设立学院</label>
         <div class="layui-input-inline">
-            <select name="quiz1">
+            <select id="collegeCid" name="collegeCid">
                 <option value="">请选择学院</option>
-                <option value="浙江" selected="">浙江省</option>
-                <option value="你的工号">江西省</option>
-                <option value="你最喜欢的老师">福建省</option>
             </select>
         </div>
     </div>
@@ -122,11 +142,11 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交"></input>
+            <input type="button" class="layui-btn" value="立即提交">
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
-
+<link rel="stylesheet" href="../css/show.css">
 </body>
 </html>

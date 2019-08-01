@@ -17,8 +17,8 @@ public class Major {
     @Column(name = "major_describe")
     private String majorDescribe;
 
-    @Column(name = "college_cid")
-    private Integer collegeCid;
+    @Column(name = "college_id")
+    private Integer collegeId;
 
     private College college;
 }

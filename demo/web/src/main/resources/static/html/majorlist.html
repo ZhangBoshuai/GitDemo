@@ -7,7 +7,36 @@
     <title>form</title>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="../css/show.css" type="text/css">
+    <script>
+        $(function () {
+            findByAll()
+        })
 
+        function findByAll() {
+            $.ajax({
+                url: "/major",
+                type: "get",
+                dataType: "json",
+                statusCode: {
+                    200: function (ele) {
+                        $("#tbStudent").html("")
+                        $(ele).each(function (i, data) {
+                            $("#tbStudent").append("<tr>\n" +
+                                "            <td>" + data.majorId + "</td>\n" +
+                                "            <td>" + data.majorName + "</td>\n" +
+                                "            <td>" + data.majorDescribe + "</td>\n" +
+                                "            <td>" + data.college.collegeName + "</td>\n" +
+                                "            <td>\n" +
+                                "                <a href=\"\" class=\"delete\">删除</a>\n" +
+                                "                <a href=\"editsmajor.html\" class=\"edit\">编辑</a>\n" +
+                                "            </td>\n" +
+                                "        </tr>")
+                        })
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -25,17 +54,19 @@
             <th>专业名称</th>
             <th>专业描述</th>
             <th>所属学院</th>
-            <th colspan="2">操作</th>
+            <th>操作</th>
         </tr>
         </thead>
         <tbody id="tbStudent">
         <tr>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td><a href="" class="delete">删除</a></td>
-            <td><a href="editsmajor.html" class="edit">编辑</a></td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>1</td>
+            <td>
+                <a href="" class="delete">删除</a>
+                <a href="editsmajor.html" class="edit">编辑</a>
+            </td>
         </tr>
         </tbody>
     </table>
