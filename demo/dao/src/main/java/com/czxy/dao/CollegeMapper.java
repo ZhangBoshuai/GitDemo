@@ -1,19 +1,13 @@
 package com.czxy.dao;
-import com.czxy.domain.College;
-import org.apache.ibatis.annotations.Mapper;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.czxy.domain.College;
+import org.apache.ibatis.annotations.Mapper;
+
 
 @Mapper
 public interface CollegeMapper extends tk.mybatis.mapper.common.Mapper<College> {
-
-
-
-List<College> findByCollegeId(@Param("collegeId")Integer collegeId);
-
-
-
-
+    College findFirstByCollegeId(@Param("collegeId") Integer collegeId);
 
 }
