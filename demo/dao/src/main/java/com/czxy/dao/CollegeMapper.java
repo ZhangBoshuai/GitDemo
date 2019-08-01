@@ -10,4 +10,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface CollegeMapper extends tk.mybatis.mapper.common.Mapper<College> {
     College findFirstByCollegeId(@Param("collegeId") Integer collegeId);
 
+   College findFirstBycollegeName(@Param("collegeName")String collegeName);
+
+
+
 }
