@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @RestController
-@RequestMapping("/college")
+@RequestMapping("/c")
 public class CollegeController {
 
 
