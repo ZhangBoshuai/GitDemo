@@ -80,16 +80,72 @@
 
         });
     </script>
+    <script>
+        $(function () {
+            var path = decodeURI(location.href)
+            var ss = path.split("=")
+            var sid = ss[1];
+            console.log("传递过来的Id--->" + sid)
+            layui.use(['form'], function () {
+                var form = layui.form
+                $.ajax({
+                    url: "/student/editShow/" + sid,
+                    type: "GET",
+                    dataType: "json",
+                    success: function (vo) {
+                        $("#studentId").val(vo.student.studentId);
+                        $("#studentName").val(vo.student.studentName);
+                        $("#studentSex").val(vo.student.studentSex);
+                        $("#studentPhone").val(vo.student.studentPhone);
+                        $("#studentBirthday").val(vo.student.studentBirthday);
+                        $("#studentEmail").val(vo.student.studentEmail);
+                        $("#studentYear").val(vo.student.studentYear);
+                        $("#studentSemester").val(vo.student.studentSemester);
+                        $("#studentDescribe").val(vo.student.studentDescribe);
+                    }
+                })
+                    .done(function (vo) {
+                        $(vo.majorList).each(function (index, ele) {
+                            console.log(ele.majorName + "::::")
+                            $("#majorId").append("<option value=\"" + ele.majorId + "\">" + ele.majorName + "</option>")
+                        })
+                        $("#majorId").val(vo.student.majorId)
+                        form.render('select');//重点：重新渲染select
+                    })
+
+            })
+
+        })
+
+        function myUpdateStudent() {
+            var uf = $("#updateForm").formToJson()
+            $.ajax({
+                url: "/student/edit",
+                type: "PUT",
+                data: uf,
+                dataType: "json",
+                statusCode: {
+                    204: function () {
+                        location.href = "/html/studentlist.html"
+                    },
+                    500: function () {
+                        alert("编辑失败")
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 
 
-<form class="layui-form" action="">
-
+<form class="layui-form" id="updateForm">
+    <input type="hidden" name="studentId" id="studentId">
     <div class="layui-form-item">
         <label class="layui-form-label">学生姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="studentName" id="studentName" lay-verify="required" placeholder="请输入姓名"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -97,8 +153,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男" checked="">
-            <input type="radio" name="sex" value="女" title="女">
+            <input type="radio" name="studentSex" value="男" title="男" checked="">
+            <input type="radio" name="studentSex" value="女" title="女">
         </div>
     </div>
 
@@ -106,14 +162,16 @@
         <div class="layui-inline">
             <label class="layui-form-label">联系方式</label>
             <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="studentPhone" id="studentPhone" lay-verify="required|phone" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
 
         <div class="layui-inline">
             <label class="layui-form-label">出生日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off"
+                <input type="text" name="studentBirthday" id="studentBirthday" lay-verify="date"
+                       placeholder="yyyy-MM-dd" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
@@ -125,14 +183,16 @@
         <div class="layui-inline">
             <label class="layui-form-label">邮箱地址</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="studentEmail" id="studentEmail" lay-verify="email" autocomplete="off"
+                       class="layui-input">
             </div>
         </div>
 
         <div class="layui-inline">
             <label class="layui-form-label">所属学年</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                <input type="text" name="studentYear" id="studentYear" lay-verify="required" placeholder="请输入所属学年"
+                       autocomplete="off"
                        class="layui-input">
             </div>
         </div>
@@ -142,7 +202,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所属学期</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="studentSemester" id="studentSemester" lay-verify="required" placeholder="请输入学期"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -151,11 +212,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所选专业</label>
         <div class="layui-input-inline">
-            <select name="quiz1">
-                <option value="">请选择省</option>
-                <option value="浙江" selected="">浙江省</option>
-                <option value="你的工号">江西省</option>
-                <option value="你最喜欢的老师">福建省</option>
+            <select name="majorId" id="majorId">
+                <option value="non">---请选择---</option>
             </select>
         </div>
     </div>
@@ -164,13 +222,13 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">学生描述</label>
         <div class="layui-input-block">
-            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+            <textarea name="studentDescribe" id="studentDescribe" placeholder="请输入内容" class="layui-textarea"></textarea>
         </div>
     </div>
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交"></input>
+            <input type="button" class="layui-btn" onclick="myUpdateStudent()" value="立即提交"></input>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

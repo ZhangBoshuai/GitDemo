@@ -24,10 +24,11 @@ public class StudentController {
      * 模糊查询功能
      */
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Student>> search(Student student){
+    @GetMapping("search/{username}")
+    public ResponseEntity<List<Student>> search(@PathVariable("username") String username) {
         try {
-            List<Student> studentList = studentService.findByStudentNameLike(student.getStudentName());
+            List<Student> studentList = studentService.findByStudentNameLike(username);
+            System.out.println(studentList);
             return ResponseEntity.ok(studentList);
         } catch (Exception e) {
             e.printStackTrace();
@@ -41,6 +42,7 @@ public class StudentController {
      */
     @PutMapping("/edit")
     public ResponseEntity<Void> edit(Student student){
+        System.out.println(student);
         try {
             studentService.updateByStudentId(student,student.getStudentId());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

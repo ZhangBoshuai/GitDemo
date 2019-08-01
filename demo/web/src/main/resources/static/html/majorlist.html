@@ -7,7 +7,7 @@
     <title>form</title>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="../css/show.css" type="text/css">
-    <script>
+    <script type="text/javascript">
         $(function () {
             findByAll()
         })
@@ -27,11 +27,26 @@
                                 "            <td>" + data.majorDescribe + "</td>\n" +
                                 "            <td>" + data.college.collegeName + "</td>\n" +
                                 "            <td>\n" +
-                                "                <a href=\"\" class=\"delete\">删除</a>\n" +
-                                "                <a href=\"editsmajor.html\" class=\"edit\">编辑</a>\n" +
+                                "                <a href=\"javascript:del(" + data.majorId + ")\" class=\"delete\">删除</a>\n" +
+                                "                <a href=\"editsmajor.html?majorId=" + data.majorId + "\" class=\"edit\">编辑</a>\n" +
                                 "            </td>\n" +
                                 "        </tr>")
                         })
+                    }
+                }
+            })
+        }
+
+        function del(majorId) {
+            $.ajax({
+                url: "/major/del/" + majorId,
+                type: "delete",
+                statusCode: {
+                    204: function () {
+                        findByAll()
+                    },
+                    500: function () {
+                        alert("删除失败")
                     }
                 }
             })

@@ -6,8 +6,81 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>form</title>
     <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
     <link rel="stylesheet" href="../css/show.css" type="text/css">
+    <script>
+        $(function () {
+            findAll()
+        })
 
+        function findAll() {
+            $("#tbStudent").html("")
+            $.ajax({
+                url: "/student/findAllStu",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $(data).each(function (index, ele) {
+                        $("#tbStudent").append("<tr>\n" +
+                            "            <td width=\"10%\">" + ele.studentId + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentName + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentBirthday + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentEmail + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentYear + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentSemester + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentPhone + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.major.majorName + "</td>\n" +
+                            "            <td><a href=\"javascript:del('" + ele.studentId + "')\" class=\"delete\">删除</a></td>\n" +
+                            "            <td><a href=\"editstudent.html?sid=" + ele.studentId + "\" class=\"edit\">编辑</a></td>\n" +
+                            "        </tr>")
+                    })
+                }
+            })
+        }
+
+        function myusername() {
+            var u = $("#username").val()
+            alert(u)
+            $.ajax({
+                url: "/student/search/" + u,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#tbStudent").html("")
+                    $(data).each(function (index, ele) {
+                        $("#tbStudent").append("<tr>\n" +
+                            "            <td width=\"10%\">" + ele.studentId + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentName + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentBirthday + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentEmail + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentYear + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentSemester + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.studentPhone + "</td>\n" +
+                            "            <td width=\"10%\">" + ele.major.majorName + "</td>\n" +
+                            "            <td><a href=\"javascript:del('" + ele.studentId + "')\" class=\"delete\">删除</a></td>\n" +
+                            "            <td><a href=\"editstudent.html?sid=" + ele.studentId + "\" class=\"edit\">编辑</a></td>\n" +
+                            "        </tr>")
+                    })
+                }
+            })
+        }
+
+        function del(sid) {
+            $.ajax({
+                url: "/student/del/" + sid,
+                type: "DELETE",
+                dataType: "json",
+                statusCode: {
+                    204: function () {
+                        findAll()
+                    },
+                    500: function () {
+                        alert("删除失败")
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -15,8 +88,8 @@
     <div class="add">
         <b>当前专业信息</b> <br><br>
         <font size="2">查询学生</font>
-        <input type="text" name="title" value="" placeholder="请输入学生姓名"/>
-        <button>查询</button>
+        <input type="text" name="username" id="username" placeholder="请输入学生姓名"/>
+        <button onclick="myusername()">查询</button>
     </div>
     <table cellpadding="0" cellspacing="0">
         <thead>
@@ -33,18 +106,7 @@
         </tr>
         </thead>
         <tbody id="tbStudent">
-        <tr>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td><a href="" class="delete">删除</a></td>
-            <td><a href="editstudent.html" class="edit">编辑</a></td>
-        </tr>
+
         </tbody>
     </table>
 </div>

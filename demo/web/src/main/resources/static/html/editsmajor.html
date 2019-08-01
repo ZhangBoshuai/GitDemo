@@ -80,29 +80,107 @@
 
         });
     </script>
+    <script>
+        $(function () {
+            findByCollegeAll()
+        })
+        $(function () {
+            findByMajor()
+        })
+
+        function findByMajor() {
+            var href = location.href;
+            var strings = href.split("=");
+            var id = strings[1]
+
+            layui.use(['form'], function () {
+                var form = layui.form
+                $.ajax({
+                    url: "/major/findByMajor/" + id,
+                    type: "get",
+                    statusCode: {
+                        200: function (ele) {
+                            $("#majorId").val(ele.majorId)
+                            $("#majorName").val(ele.majorName)
+                            $("#majorDescribe").val(ele.majorDescribe)
+                        },
+                        500: function () {
+                            alert("回显失败")
+                        }
+                    }
+                })
+                    .done(function (ele) {
+                        $("#collegeId").val(ele.collegeId)
+                        form.render("select")
+                    })
+            })
+
+        }
+
+        function findByCollegeAll() {
+
+            layui.use(['form'], function () {
+                var form = layui.form
+                $.ajax({
+                    url: "/c/findAllCollege",
+                    type: "get",
+                    dataType: "json",
+                    success: function (ele) {
+                    }
+                })
+                    .done(function (ele) {
+                        $("#collegeId").html(" <option value=\"\">请选择学院</option>")
+                        $(ele).each(function (i, data) {
+                            $("#collegeId").append("<option value=\"" + data.collegeId + "\">" + data.collegeName + "</option>")
+                        })
+                        form.render("select")
+                    })
+            })
+        }
+
+        function mysubmit() {
+            var formToJson = $("#myform").formToJson();
+            $.ajax({
+                url: "/major/updateByMajor",
+                type: "put",
+                data: formToJson,
+                statusCode: {
+                    205: function () {
+                        location.href = 'majorlist.html'
+                    },
+                    500: function () {
+                        alert("添加失败")
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 <body>
-<h1>添加课程</h1>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="add">
+    <b>修改专业信息</b> <br><br>
+    <!-- <font size="2">查询学生</font>
+     <input type="text"  name="title" value="" placeholder="请输入学生姓名" />
+     <button>查询</button>-->
+</div>
 
-<form class="layui-form" action="">
+<form class="layui-form" id="myform" action="">
+    <input type="hidden" name="majorId" id="majorId">
 
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名称</label>
+        <label class="layui-form-label">专业名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+
+            <input type="text" name="majorName" id="majorName" lay-verify="required" placeholder="请输入姓名"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">课程名称</label>
+        <label class="layui-form-label">专业描述</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="majorDescribe" id="majorDescribe" lay-verify="majorDescribe" placeholder="请输入姓名"
+                   autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -110,11 +188,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">设立学院</label>
         <div class="layui-input-inline">
-            <select name="quiz1">
-                <option value="">请选择学院</option>
-                <option value="浙江" selected="">浙江省</option>
-                <option value="你的工号">江西省</option>
-                <option value="你最喜欢的老师">福建省</option>
+            <select name="collegeId" id="collegeId">
             </select>
         </div>
     </div>
@@ -122,11 +196,11 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交"></input>
+            <input type="button" onclick="mysubmit()" class="layui-btn" value="立即提交"></input>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
 </form>
-
+<link rel="stylesheet" href="../css/show.css">
 </body>
 </html>
