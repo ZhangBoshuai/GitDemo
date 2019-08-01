@@ -1,4 +1,6 @@
 package com.czxy.service.impl;
+
+import com.czxy.domain.Student;
 import java.util.List;
 import com.czxy.domain.User;
 
@@ -11,9 +13,11 @@ public class UserServiceImpl implements UserService{
 
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private com.czxy.dao.StudentMapper studentMapper;
 
 
-	@Override
+    @Override
 	public User findByUsernameAndPassword(User user) {
 		List<User> byUsername = userMapper.findByUsernameAndPassword(user);
 
@@ -23,8 +27,4 @@ public class UserServiceImpl implements UserService{
 			return null;
 		}
 	}
-
-
-
-
 }

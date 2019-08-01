@@ -87,19 +87,38 @@
         })
 
         function findByCollegeAll() {
-            $.ajax({
-                url: "/c/findAllCollege",
-                type: "get",
-                dataType: "json",
-                statusCode: {
-                    200: function (ele) {
-                        $("#collegeCid").html(" <option value=\"\">请选择学院</option>")
+            layui.use(['form'], function () {
+                var form = layui.form
+                $.ajax({
+                    url: "/c/findAllCollege",
+                    type: "get",
+                    dataType: "json",
+                    success: function (ele) {
+
+                    }
+                })
+                    .done(function (ele) {
+                        $("#collegeId").html(" <option value=\"\">请选择学院</option>")
                         $(ele).each(function (i, data) {
-                            $("#collegeCid").append("<option value=\"" + data.collegeId + "\">" + data.collegeName + "</option>")
+                            $("#collegeId").append("<option value=\"" + data.collegeId + "\">" + data.collegeName + "</option>")
                         })
+                        form.render("select")
+                    })
+            })
+        }
+
+        function mysubmit() {
+            var formToJson = $("#myform").formToJson();
+            $.ajax({
+                url: "/major",
+                type: "post",
+                data: formToJson,
+                statusCode: {
+                    201: function () {
+                        location.href = 'majorlist.html'
                     },
                     500: function () {
-                        alert("1111")
+                        alert("添加失败")
                     }
                 }
             })
@@ -133,7 +152,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">设立学院</label>
         <div class="layui-input-inline">
-            <select id="collegeCid" name="collegeCid">
+            <select id="collegeId" name="collegeId">
                 <option value="">请选择学院</option>
             </select>
         </div>
@@ -142,7 +161,7 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交">
+            <input type="button" onclick="mysubmit()" class="layui-btn" value="立即提交">
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
