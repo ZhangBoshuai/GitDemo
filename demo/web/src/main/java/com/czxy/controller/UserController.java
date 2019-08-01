@@ -19,7 +19,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Void> login(HttpSession session,User user){
         System.out.println(user);
-        User userByUserName = userService.findByUsernameAndPassword(user.getUsername(),user.getPassword());
+        User userByUserName = userService.findByUsernameAndPassword(user);
         if (userByUserName!=null){
             session.setAttribute("loginU",userByUserName);
             return new ResponseEntity<>(HttpStatus.OK);
