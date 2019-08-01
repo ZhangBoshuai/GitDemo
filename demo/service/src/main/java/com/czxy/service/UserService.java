@@ -9,7 +9,12 @@ public interface UserService{
 
 
 
-	User findByUsernameAndPassword(String username,String password);
+	User findByUsernameAndPassword(User user);
+
+
+
+
+
 
 
 
