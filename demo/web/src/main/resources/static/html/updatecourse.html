@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+    <script>
+
+        $(function () {
+            var href = location.href;
+            var strings = href.split("=");
+            var cid = strings[1];
+            $.ajax({
+                url: "/course/editShow/" + cid,
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    var c = data.course
+                    $("#courseCid").val(c.courseCid)
+                    $("#courseName").val(c.courseName)
+                    $("#courseCredit").val(c.courseCredit)
+                    $("#courseTime").val(c.courseTime);
+                    $("#courseDepict").val(c.courseDepict);
+                    if ($("#courseRequired").val() == c.studentSex) {
+                        $("#courseRequired").prop("checked", true)
+                    } else {
+                        $("#woman").prop("checked", true)
+                    }
+                    $("#collegeId").html(c.collegeId);
+                    var colleges=data.courseList
+                    $(colleges).each(function (index,ele) {
+
+                        if (c.collegeCid==ele.collegeCid){
+                            $("#collegeCid").append(" <option selected='selected' value=\""+ele.collegeId+"\">"+ele.collegeName+"</option>\n")
+                        } else {
+                            $("#collegeCid").append(" <option value=\""+ele.collegeId+"\">"+ele.collegeName+"</option>\n")
+
+                        }
+                    })
+                }
+            })
+        })
+
+        function mysubmit() {
+           var fd= $("#addForm").formToJson()
+            $.ajax({
+                url:"/course/edit",
+                type:"PUT",
+                dataType:"json",
+                data:fd,
+                statusCode:{
+                    204:function () {
+                        location.href="/html/courselist.html"
+                    },
+                    500:function () {
+                        alert("亲：抱歉您当前网络不佳，请稍后再试")
+                    }
+                }
+            })
+
+        }
+    </script>
+</head>
+<body>
+<form id="addForm">
+    <input type="hidden" name="courseCid" id="courseCid">
+    课程名称:<input type="text" id="courseName" name="courseName" placeholder="请输入"><br>
+    课程类型:<input type="radio" id="courseRequired" name="courseRequired" value="必修">必修<input type="radio" id="woman"
+                                                                                           name="courseRequired"
+                                                                                           value="选修">选修<br>
+    课程学时;<input type="text" name="courseTime" id="courseTime"><br>
+    课程学分;<input type="text" name="courseCredit" id="courseCredit"><br>
+    设立学院:<select name="collegeId" id="collegeCid">
+    <!--<option value="大数据工程学院">大数据工程学院</option>-->
+</select>
+    <br>
+    专业描述:<textarea id="courseDepict" name="courseDepict" placeholder="请输入内容"></textarea><br>
+    <input type="button"  onclick="mysubmit()" value="修改"> <input type="reset" name="button" id="caln"
+                                                                          value="重置"/>
+    <span id="s01"></span>
+</form>
+</body>
+</html>
