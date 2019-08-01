@@ -2,93 +2,179 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>编辑学生</title>
     <!--jquery-->
     <script src="../js/jquery-3.3.1.min.js"></script>
     <!--获取form表单-->
     <script src="../js/form2json.js"></script>
     <!--图片上传回显-->
     <script src="../js/imgEcho.js"></script>
-
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script src="../layui/layui.js"></script>
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <script>
+        layui.use('form', function () {
+            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
 
-        $(function () {
-            var sid = decodeURI(location.href).split("=")[1]
-            $.ajax({
-                url: '/student/editShow/' + sid,
-                type: 'get',
-                dataType: 'json',
-                success: function (data) {
-                    var s = data.student
-                    $("#studentId").val(s.studentId)
-                    $("#studentName").val(s.studentName)
-                    if ($("#man").val() == s.studentSex) {
-                        $("#man").prop("checked", true)
-                    } else {
-                        $("#woman").prop("checked", true)
-                    }
-                    $("#studentPhone").val(s.studentPhone)
-                    $("#studentBirthday").val(s.studentBirthday)
-                    $("#studentEmail").val(s.studentEmail)
-                    $("#studentDescribe").val(s.studentDescribe)
-                    $("#studentYear").val(s.studentYear)
-                    $("#studentSemester").val(s.studentSemester)
+            //……
 
-                    var majors = data.majorList
-                    $(majors).each(function (index, ele) {
-                        if (s.majorId == ele.majorId) {
-                            $("#majorSeId").append("<option selected='selected' value='"+ele.majorId+"'>"+ele.majorName+"</option>")
-                        }else {
-                            $("#majorSeId").append("<option   value='"+ele.majorId+"'>"+ele.majorName+"</option>")
-                        }
-                    })
-                }
-            })
-        })
-
-        function mySubmit() {
-            var ft=$("#editForm").formToJson()
-            $.ajax({
-                url:'/student/edit',
-                data:ft,
-                type:'PUT',
-                dataType:'json',
-                statusCode:{
-                    204:function () {
-                        location.href="/html/studentlist.html"
-                    },
-                    500:function () {
-                        alert("修改失败")
-                    }
-                }
-            })
-        }
-
+            //但是，如果你的HTML是动态生成的，自动渲染就会失效
+            //因此你需要在相应的地方，执行下述方法来手动渲染，跟这类似的还有 element.init();
+            form.render();
+        });
     </script>
 
+
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate;
+
+            //日期
+            laydate.render({
+                elem: '#date'
+            });
+            laydate.render({
+                elem: '#date1'
+            });
+
+            //创建一个编辑器
+            var editIndex = layedit.build('LAY_demo_editor');
+
+            //自定义验证规则
+            form.verify({
+                title: function (value) {
+                    if (value.length < 5) {
+                        return '标题至少得5个字符啊';
+                    }
+                }
+                , pass: [
+                    /^[\S]{6,12}$/
+                    , '密码必须6到12位，且不能出现空格'
+                ]
+                , content: function (value) {
+                    layedit.sync(editIndex);
+                }
+            });
+
+            //监听指定开关
+            form.on('switch(switchTest)', function (data) {
+                layer.msg('开关checked：' + (this.checked ? 'true' : 'false'), {
+                    offset: '6px'
+                });
+                layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF', data.othis)
+            });
+
+            //监听提交
+            form.on('submit(demo1)', function (data) {
+                layer.alert(JSON.stringify(data.field), {
+                    title: '最终的提交信息'
+                })
+                return false;
+            });
+
+
+        });
+    </script>
 </head>
 <body>
-<h1>编辑学生信息</h1>
-<form id="editForm">
-    <input type="hidden" name="studentId" id="studentId">
-    学生姓名:<input type="text" id="studentName" name="studentName" placeholder="请输入"><br>
-    <input type="radio"  id="man" name="studentSex" value="男">男<input type="radio" id="woman" name="studentSex"
-                                                                     value="女">女<br>
-    联系方式<input type="text" name="studentPhone" id="studentPhone"> 出生日期:<input type="text" id="studentBirthday"
-                                                                              name="studentBirthday"><br>
-    电子邮箱:<input type="text" name="studentEmail" id="studentEmail"><br>
-    所属学年:<input type="text" name="studentYear" id="studentYear"><br>
-    所属学期:<input type="text" name="studentSemester" id="studentSemester"><br>
-    所属专业:<select name="majorId" id="majorSeId">
-    <option value="1">计算器</option>
-    <!--<option value="2">大数据</option>-->
-</select>
-    <br>
-    学生描述:<textarea id="studentDescribe" name="studentDescribe" placeholder="请输入内容"></textarea><br>
-    <input type="button" id="add" onclick="mySubmit()" value="修改"> <input type="reset" name="button" id="caln"
-                                                                          value="重置"/>
-</form>
 
+
+<form class="layui-form" action="">
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">学生姓名</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男" checked="">
+            <input type="radio" name="sex" value="女" title="女">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">联系方式</label>
+            <div class="layui-input-inline">
+                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">出生日期</label>
+            <div class="layui-input-inline">
+                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">邮箱地址</label>
+            <div class="layui-input-inline">
+                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-inline">
+            <label class="layui-form-label">所属学年</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">所属学期</label>
+        <div class="layui-input-inline">
+            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                   class="layui-input">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">所选专业</label>
+        <div class="layui-input-inline">
+            <select name="quiz1">
+                <option value="">请选择省</option>
+                <option value="浙江" selected="">浙江省</option>
+                <option value="你的工号">江西省</option>
+                <option value="你最喜欢的老师">福建省</option>
+            </select>
+        </div>
+    </div>
+
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">学生描述</label>
+        <div class="layui-input-block">
+            <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="button" class="layui-btn" value="立即提交"></input>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
 
 </body>
 </html>

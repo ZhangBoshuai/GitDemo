@@ -14,14 +14,17 @@ public class UserServiceImpl implements UserService{
 
 
 	@Override
-	public User findByUsernameAndPassword(String username, String password) {
-		List<User> byUsername = userMapper.findByUsernameAndPassword(username,password);
+	public User findByUsernameAndPassword(User user) {
+		List<User> byUsername = userMapper.findByUsernameAndPassword(user);
 
-		if (byUsername!=null){
+		if (byUsername.size()!=0){
 			return byUsername.get(0);
 		}else{
-
 			return null;
 		}
 	}
+
+
+
+
 }

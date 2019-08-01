@@ -1,136 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <title>所有学生信息</title>
-    <!--jquery-->
-    <script src="../js/jquery-3.3.1.min.js" ></script>
-    <!--获取form表单-->
-    <script src="../js/form2json.js"></script>
-    <!--图片上传回显-->
-    <script src="../js/imgEcho.js"></script>
-
-    <script>
-
-        $(function () {
-           findAll()
-        })
-
-        function findAll() {
-            $.ajax({
-                url:'/student/findAllStu',
-                type:'get',
-                dataType:'json',
-                success:function (data) {
-                    $(data).each(function (index, s) {
-                        $("#tbStudent").append("<tr>\n" +
-                            "        <td>"+s.studentId+"</td>\n" +
-                            "        <td>"+s.studentName+"</td>\n" +
-                            "        <td>"+s.studentSex+"</td>\n" +
-                            "        <td>"+s.studentBirthday+"</td>\n" +
-                            "        <td>"+s.studentEmail+"</td>\n" +
-                            "        <td>"+s.studentYear+"</td>\n" +
-                            "        <td>"+s.studentSemester+"</td>\n" +
-                            "        <td>"+s.studentPhone+"</td>\n" +
-                            "        <td>"+s.major.majorName+"</td>\n" +
-                            "        <td>\n" +
-                            "            <a href='editstudent.html?sid="+s.studentId+"'>编辑</a>\n" +
-                            "            <a href='javascript:del(\""+s.studentId+"\")'>删除</a>\n" +
-                            "        </td>\n" +
-                            "    </tr>")
-                    })
-                }
-            })
-        }
-
-        function del(sid) {
-            $.ajax({
-                url:'/student/del/'+sid,
-                type:'DELETE',
-                dataType:'json',
-                statusCode:{
-                    204:function () {
-                        $("#tbStudent").html("")
-                        findAll()
-                    },
-                    500:function () {
-                        alert("删除失败")
-                    }
-                }
-            })
-        }
-
-        function search() {
-
-           var ft=$("#searchForm").formToJson()
-            $.ajax({
-                url:'/student/search',
-                data:ft,
-                type:'get',
-                dataType:'json',
-                success:function (data) {
-                    $("#tbStudent").html("")
-                    $(data).each(function (index, s) {
-                        $("#tbStudent").append("<tr>\n" +
-                            "        <td>"+s.studentId+"</td>\n" +
-                            "        <td>"+s.studentName+"</td>\n" +
-                            "        <td>"+s.studentSex+"</td>\n" +
-                            "        <td>"+s.studentBirthday+"</td>\n" +
-                            "        <td>"+s.studentEmail+"</td>\n" +
-                            "        <td>"+s.studentYear+"</td>\n" +
-                            "        <td>"+s.studentSemester+"</td>\n" +
-                            "        <td>"+s.studentPhone+"</td>\n" +
-                            "        <td>"+s.major.majorName+"</td>\n" +
-                            "        <td>\n" +
-                            "            <a href='editstudent.html?sid="+s.studentId+"'>编辑</a>\n" +
-                            "            <a href='javascript:del(\""+s.studentId+"\")'>删除</a>\n" +
-                            "        </td>\n" +
-                            "    </tr>")
-                    })
-                }
-            })
-        }
-
-    </script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>form</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="../css/show.css" type="text/css">
 
 </head>
+
 <body>
-<h1>当前学生信息</h1>
-<form id="searchForm">
-    查询学生:<input type="text" id="studentName" name="studentName"> <input type="button" onclick="search()" value="查询" name="button">
-</form>
-<hr>
-<hr>
-<table border="1" >
-    <thead>
-    <th>ID</th>
-    <th>姓名</th>
-    <th>性别</th>
-    <th>出生日期</th>
-    <th>邮箱地址</th>
-    <th>学期</th>
-    <th>学年</th>
-    <th>电话</th>
-    <th>专业</th>
-    <th>操作</th>
-    </thead>
-    <tbody id="tbStudent">
-    <!--<tr>-->
-        <!--<td>1</td>-->
-        <!--<td>张三</td>-->
-        <!--<td>男</td>-->
-        <!--<td>2019-05-28</td>-->
-        <!--<td>281339785@qq.com</td>-->
-        <!--<td>4</td>-->
-        <!--<td>2</td>-->
-        <!--<td>13303947277</td>-->
-        <!--<td>计算机科学与技术</td>-->
-        <!--<td>-->
-            <!--<a href="#">编辑</a>-->
-            <!--<a href="#">删除</a>-->
-        <!--</td>-->
-    <!--</tr>-->
-    </tbody>
-</table>
+<div id="table">
+    <div class="add">
+        <b>当前专业信息</b> <br><br>
+        <font size="2">查询学生</font>
+        <input type="text" name="title" value="" placeholder="请输入学生姓名"/>
+        <button>查询</button>
+    </div>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>姓名</th>
+            <th>出生日期</th>
+            <th>邮箱地址</th>
+            <th>学期</th>
+            <th>学年</th>
+            <th>电话</th>
+            <th>专业</th>
+            <th align="center" colspan="2">操作</th>
+        </tr>
+        </thead>
+        <tbody id="tbStudent">
+        <tr>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td><a href="" class="delete">删除</a></td>
+            <td><a href="editstudent.html" class="edit">编辑</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

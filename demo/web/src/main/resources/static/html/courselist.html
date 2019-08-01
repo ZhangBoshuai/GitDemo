@@ -1,74 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>所有课程信息</title>
-    <!--jquery-->
-    <script src="../js/jquery-3.3.1.min.js"></script>
-    <!--获取form表单-->
-    <script src="../js/form2json.js"></script>
-    <!--图片上传回显-->
-    <script src="../js/imgEcho.js"></script>
-    <script>
-        $(function () {
-            $.ajax({
-                url:"/course/findAll",
-                type:"GET",
-                dataType:"json",
-                success:function (data) {
-                    $(data).each(function (index,ele) {
-                        $("#t01").append(
-                            " <tr>\n" +
-                            "        <td>"+ele.courseCid+"</td>\n" +
-                            "        <td>"+ele.courseName+"</td>\n" +
-                            "        <td>"+ele.courseCredit+"</td>\n" +
-                            "        <td>"+ele.courseTime+"</td>\n" +
-                            "        <td>"+ele.courseDepict+"</td>\n" +
-                            "        <td>"+ele.courseRequired+"</td>\n" +
-                            "        <td>"+ele.college.collegeName+"</td>\n" +
-                            "        <td>\n" +
-                            "            <a href=\"#\">编辑</a>\n" +
-                            "            <a href=\"#\">删除</a>\n" +
-                            "        </td>\n" +
-                            "    </tr>"
-                        )
-                    })
+<html>
 
-                }
-            })
-        })
-    </script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>form</title>
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="../css/show.css" type="text/css">
+
 </head>
+
 <body>
-<h1>当前课程信息</h1>
-<hr>
-<hr>
-<table border="1" id="t01">
-    <thead>
-    <th>ID</th>
-    <th>课程名称</th>
-    <th>课程学分</th>
-    <th>课程学时</th>
-    <th>课程描述</th>
-    <th>是否选修</th>
-    <th>开课学院</th>
-    <th>操作</th>
-    </thead>
-    <tbody id="tbStudent">
-    <!--<tr>-->
-        <!--<td>11</td>-->
-        <!--<td>大数据</td>-->
-        <!--<td>5</td>-->
-        <!--<td>40</td>-->
-        <!--<td>很严重的</td>-->
-        <!--<td>必修</td>-->
-        <!--<td>计算机工程学院</td>-->
-        <!--<td>-->
-            <!--<a href="#">编辑</a>-->
-            <!--<a href="#">删除</a>-->
-        <!--</td>-->
-    <!--</tr>-->
-    </tbody>
-</table>
+<div id="table">
+    <div class="add">
+        <b>当前课程信息</b> <br><br>
+        <!-- <font size="2">查询学生</font>
+         <input type="text"  name="title" value="" placeholder="请输入学生姓名" />
+         <button>查询</button>-->
+    </div>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>课程名称</th>
+            <th>课程学分</th>
+            <th>课程学时</th>
+            <th>课程描述</th>
+            <th>是否选修</th>
+            <th>开课学院</th>
+            <th colspan="2">操作</th>
+        </tr>
+        </thead>
+        <tbody id="tbStudent">
+        <tr>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td width="10%">1</td>
+            <td><a href="" class="delete">删除</a></td>
+            <td><a href="editcourse.html" class="edit">编辑</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
