@@ -25,7 +25,7 @@ public class CourseController {
      * 展示所有课程
      * @return
      */
-    @GetMapping("findAll")
+    @GetMapping("/findAll")
     public ResponseEntity<List<Course>> findAll() {
         try {
             List<Course> byAll = courseService.findByAll(null);
@@ -102,6 +102,5 @@ public class CourseController {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }

@@ -271,7 +271,7 @@
         return layui.link(config.dir + 'css/' + firename, fn, cssname);
     };
 
-    //图片预加载
+    // 图片预加载
     Layui.prototype.img = function (url, callback, error) {
         var img = new Image();
         img.src = url;
@@ -434,7 +434,7 @@
         }
     };
 
-    //遍历
+    // 遍历
     Layui.prototype.each = function (obj, fn) {
         var key
             , that = this;
