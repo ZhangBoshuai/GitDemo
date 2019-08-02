@@ -14,17 +14,22 @@ import java.util.List;
 @RequestMapping("/c")
 public class CollegeController {
 
-
-
     @Resource
     private CollegeService collegeService;
 
     @GetMapping("/addCollege")
     public ResponseEntity<Void>   insertCollege(College college){
 
+
+
         try {
-            collegeService.insertCollege(college);
-            return new ResponseEntity<>(HttpStatus.CREATED);
+            College col= collegeService.findFirstBycollegeName(college.getCollegeName());
+            if (col==null){
+                collegeService.insertCollege(college);
+                return new ResponseEntity<>(HttpStatus.CREATED);
+            }else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,8 +63,14 @@ public class CollegeController {
     public ResponseEntity<Void>   updateCollege(College college){
 
         try {
-            collegeService.updateCollege(college);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            College col= collegeService.findFirstBycollegeName(college.getCollegeName());
+            if (col==null){
+                collegeService.updateCollege(college);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }else {
+                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

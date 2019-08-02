@@ -36,6 +36,14 @@ public class CollegeServiceImpl implements CollegeService {
         return collegeMapper.selectByPrimaryKey(collegeId);
     }
 
+	@Override
+	public College findFirstBycollegeName(String collegeName){
+		 return collegeMapper.findFirstBycollegeName(collegeName);
+	}
+
+
+
+
 
     @Resource
     private CollegeMapper collegeMapper;

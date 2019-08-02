@@ -14,6 +14,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="../layui/layui.js"></script>
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../js/form2json.js"></script>
+
+    <script>
+        $(function () {
+            var url = decodeURI(location.href)
+            var ss = url.split("?cid=")
+
+            $("#collegeId").val(ss[1])
+            $.ajax({
+                url:"/c/findOneCollege/"+ss[1],
+                type:"GET",
+                dataType:"json",
+                statusCode:{
+                    200:function (college) {
+                        $("#collegeName").val(college.collegeName)
+                    }
+                }
+            })
+        })
+
+        function updateCollege() {
+            var df = $("#editCollege").formToJson()
+            $.ajax({
+                url:"/c/updateCollege",
+                type:"PUT",
+                data:df,
+                statusCode:{
+                    204:function () {
+                        location.href="collegelist.html"
+                    },
+                    500:function () {
+                        alert("该学院已存在，请重新输入！")
+                    }
+                }
+            })
+        }
+    </script>
+
     <script>
         layui.use('form', function () {
             var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
@@ -82,18 +121,18 @@
     </script>
 </head>
 <body>
-<h1>添加学院</h1>
+<h1>编辑学院</h1>
 <br>
 <br>
 <br>
 <br>
 <br>
 <br>
-<form class="layui-form" action="">
+<form class="layui-form" id="editCollege">
     <div class="layui-form-item">
         <label class="layui-form-label">学院名称</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" id="collegeName" name="collegeName" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -101,7 +140,8 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交"></input>
+            <input type="hidden" id="collegeId" name="collegeId">
+            <input type="button" class="layui-btn" value="保存修改" onclick="updateCollege()"></input>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

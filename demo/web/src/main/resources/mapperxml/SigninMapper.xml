@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.czxy.dao.SigninMapper">
+  <resultMap id="BaseResultMap" type="com.czxy.domain.Signin">
+    <!--@mbg.generated generated on Thu Aug 01 11:29:24 CST 2019.-->
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="sign_lastTime" jdbcType="TIMESTAMP" property="signLasttime" />
+    <result column="sign_continuityTimes" jdbcType="INTEGER" property="signContinuitytimes" />
+    <result column="sign_totalTimes" jdbcType="INTEGER" property="signTotaltimes" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated generated on Thu Aug 01 11:29:24 CST 2019.-->
+    user_id, sign_lastTime, sign_continuityTimes, sign_totalTimes
+  </sql>
+</mapper>

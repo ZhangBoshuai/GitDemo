@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script  src="js/jquery-3.3.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script  src="js/form2json.js"></script>
+    <script src="layui/layui.js"></script>
+    <link rel="stylesheet" href="layui/css/layui.css">
+
+    <script>
+        //JavaScript代码区域
+        layui.use('element', function(){
+            var element = layui.element;
+
+        });
+    </script>
+
+
+
+    <script>
+        function html(url) {
+            $("#mframe").attr("src",url)
+        }
+    </script>
+
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">管理系统欢迎登录</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="">控制台</a></li>
+            <li class="layui-nav-item"><a href="">商品管理</a></li>
+            <li class="layui-nav-item"><a href="">用户</a></li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">其它系统</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">邮件管理</a></dd>
+                    <dd><a href="">消息管理</a></dd>
+                    <dd><a href="">授权管理</a></dd>
+                </dl>
+            </li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    贤心
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="">退出登录</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+                <li data-name data-jump class="layui-nav-item layui-nav-itemed">
+                    <a class="javascript" href="javascript:;">学生管理</a>
+                    <dl  class="layui-nav-child">
+                        <dd data-name="homepage1" data-jump="html/success.html" class="layui-this">
+                            <a href='javascript:html("html/studentlist.html")' >显示所有学生</a>
+                        </dd>
+                    <dd><a href='javascript:html("html/addstudent.html")'>添加学生</a></dd>
+
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">课程管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href='javascript:html("html/courselist.html")' >显示所有课程</a></dd>
+                        <dd><a href='javascript:html("html/addcourse.html")'>添加课程</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">学院管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href='javascript:html("html/collegelist.html")'>显示所有学院</a></dd>
+                        <dd><a href='javascript:html("html/addcollege.html")'>添加学院</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">专业管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href='javascript:html("html/specialtylist.html")'>所有专业</a></dd>
+                        <dd><a href='javascript:html("html/addspecialty.html")'>设置专业</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <iframe id="mframe" width="100%" height="100%" src=""></iframe>
+    </div>
+
+    <div class="layui-footer">
+        <!-- 底部固定区域 -->
+        © wangzhenyu.com - 底部固定区域
+    </div>
+</div>
+
+</body>
+</html>

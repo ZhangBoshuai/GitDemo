@@ -26,6 +26,54 @@
         });
     </script>
 
+    <script>
+
+        $(function () {
+            findAllMajor()
+        })
+
+        function findAllMajor() {
+            layui.use(['form'],function () {
+                var form=layui.form;
+                $.ajax({
+                    url:'/student/getMar',
+                    type:'GET',
+                    dataType:'json',
+                    success:function (data) {
+
+                    }
+                })
+                    .done(function (data) {
+                        $(data).each(function (index, ele) {
+                            $("#maSeId").append("<option value='"+ele.majorId+"' >"+ele.majorName+"</option>")
+                        })
+                        form.render("select")
+                    })
+            })
+        }
+
+        function mySubmit() {
+          var ft=  $("#addForm").formToJson()
+            $.ajax({
+                url:'/student/addStu',
+                data:ft,
+                dataType:'json',
+                type:'POST',
+                statusCode:{
+                    201:function () {
+                        location.href="studentlist.html"
+                    },
+                    500:function () {
+                        alert("添加失败")
+                    }
+                }
+
+            })
+        }
+
+
+    </script>
+
 
     <script>
         layui.use(['form', 'layedit', 'laydate'], function () {
@@ -84,12 +132,12 @@
 <body>
 
 
-<form class="layui-form" action="">
+<form class="layui-form"  id="addForm">
 
     <div class="layui-form-item">
         <label class="layui-form-label">学生姓名</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="studentName" id="studentName" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -97,8 +145,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="sex" value="男" title="男" checked="">
-            <input type="radio" name="sex" value="女" title="女">
+            <input type="radio" id="sex1" name="studentSex" value="男" title="男" checked="">
+            <input type="radio" id="sex0" name="studentSex" value="女" title="女">
         </div>
     </div>
 
@@ -106,14 +154,14 @@
         <div class="layui-inline">
             <label class="layui-form-label">联系方式</label>
             <div class="layui-input-inline">
-                <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                <input type="tel" name="studentPhone" id="studentPhone" lay-verify="required|phone" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-inline">
             <label class="layui-form-label">出生日期</label>
             <div class="layui-input-inline">
-                <input type="text" name="date" id="date" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off"
+                <input type="text" name="studentBirthday" id="studentBirthday" lay-verify="date" placeholder="yyyy-MM-dd" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
@@ -125,14 +173,14 @@
         <div class="layui-inline">
             <label class="layui-form-label">邮箱地址</label>
             <div class="layui-input-inline">
-                <input type="text" name="email" lay-verify="email" autocomplete="off" class="layui-input">
+                <input type="text" name="studentEmail" id="studentEmail" lay-verify="email" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-inline">
             <label class="layui-form-label">所属学年</label>
             <div class="layui-input-inline">
-                <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+                <input type="text" name="studentYear" id="studentYear" lay-verify="required" placeholder="请输入学年" autocomplete="off"
                        class="layui-input">
             </div>
         </div>
@@ -142,7 +190,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所属学期</label>
         <div class="layui-input-inline">
-            <input type="text" name="username" lay-verify="required" placeholder="请输入姓名" autocomplete="off"
+            <input type="text" name="studentSemester" id="studentSemester" lay-verify="required" placeholder="请输入学期" autocomplete="off"
                    class="layui-input">
         </div>
     </div>
@@ -151,11 +199,11 @@
     <div class="layui-form-item">
         <label class="layui-form-label">所选专业</label>
         <div class="layui-input-inline">
-            <select name="quiz1">
-                <option value="">请选择省</option>
-                <option value="浙江" selected="">浙江省</option>
-                <option value="你的工号">江西省</option>
-                <option value="你最喜欢的老师">福建省</option>
+            <select name="majorId" id="maSeId" >
+                <!--<option value="">请选择省</option>-->
+                <!--<option value="浙江" selected="">浙江省</option>-->
+                <!--<option value="你的工号">江西省</option>-->
+                <!--<option value="你最喜欢的老师">福建省</option>-->
             </select>
         </div>
     </div>
@@ -170,7 +218,7 @@
 
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <input type="button" class="layui-btn" value="立即提交"></input>
+            <input type="button" class="layui-btn" value="立即提交" onclick="mySubmit()" ></input>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>

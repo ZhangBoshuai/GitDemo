@@ -95,7 +95,10 @@
                     success: function (vo) {
                         $("#studentId").val(vo.student.studentId);
                         $("#studentName").val(vo.student.studentName);
-                        $("#studentSex").val(vo.student.studentSex);
+                        console.log(vo.student.studentSex)
+                        console.log($("#sex0").val())
+
+
                         $("#studentPhone").val(vo.student.studentPhone);
                         $("#studentBirthday").val(vo.student.studentBirthday);
                         $("#studentEmail").val(vo.student.studentEmail);
@@ -105,12 +108,18 @@
                     }
                 })
                     .done(function (vo) {
+                        if ($("#sex1").val()== vo.student.studentSex){
+                            $("#sex1").prop("checked",true)
+                        } else{
+                            $("#sex0").prop("checked",true)
+                        }
                         $(vo.majorList).each(function (index, ele) {
                             console.log(ele.majorName + "::::")
                             $("#majorId").append("<option value=\"" + ele.majorId + "\">" + ele.majorName + "</option>")
                         })
                         $("#majorId").val(vo.student.majorId)
                         form.render('select');//重点：重新渲染select
+                        form.render('radio');//重点：重新渲染select
                     })
 
             })
@@ -153,8 +162,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label">性别</label>
         <div class="layui-input-block">
-            <input type="radio" name="studentSex" value="男" title="男" checked="">
-            <input type="radio" name="studentSex" value="女" title="女">
+            <input type="radio" name="studentSex" value="男" title="男" id="sex1">
+            <input type="radio" name="studentSex" value="女" title="女" id="sex0">
         </div>
     </div>
 

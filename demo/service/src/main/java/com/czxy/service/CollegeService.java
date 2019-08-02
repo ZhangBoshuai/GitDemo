@@ -16,4 +16,9 @@ public interface CollegeService{
 	void updateCollege(College college);
 
 	College findOneCollege( String collegeId);
+
+
+
+	College findFirstBycollegeName(String collegeName);
+
 }

@@ -7,7 +7,44 @@
     <title>form</title>
     <script src="../js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="../css/show.css" type="text/css">
+    <script>
+        function findAllCollege(){
+            $.ajax({
+                url:"/c/findAllCollege",
+                type:"GET",
+                dateType:"json",
+                statusCode:{
+                    200:function (data) {
+                        $.each(data,function (index, college) {
+                            $("#tbStudent").append(" <tr>\n" +
+                                "            <td width=\"10%\">"+college.collegeId+"</td>\n" +
+                                "            <td width=\"10%\">"+college.collegeName+"</td>\n" +
+                                "            <td><a href=\"javascript:del("+college.collegeId+")\" class=\"delete\">删除</a><a href=\"editcollege.html?cid="+college.collegeId+"\" class=\"edit\">编辑</a></td>\n" +
+                                "        </tr>")
+                        })
+                    }
+                }
+            })
+        }
 
+    $(function () {
+        $("#tbStudent").html("")
+        findAllCollege()
+    })
+
+        function del(cid) {
+            $.ajax({
+                url:"/c/del/"+cid,
+                type:"DELETE",
+                statusCode:{
+                    204:function () {
+                        $("#tbStudent").html("")
+                        findAllCollege()
+                    }
+                }
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -27,11 +64,7 @@
         </tr>
         </thead>
         <tbody id="tbStudent">
-        <tr>
-            <td width="10%">1</td>
-            <td width="10%">1</td>
-            <td><a href="" class="delete">删除</a><a href="editstudent.html" class="edit">编辑</a></td>
-        </tr>
+
         </tbody>
     </table>
 </div>
