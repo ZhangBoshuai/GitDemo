@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/show.css" type="text/css">
     <script>
         function findAllCollege(){
+            $("#tbStudent").html("")
             $.ajax({
                 url:"/c/findAllCollege",
                 type:"GET",
@@ -28,7 +29,7 @@
         }
 
     $(function () {
-        $("#tbStudent").html("")
+
         findAllCollege()
     })
 
@@ -38,7 +39,6 @@
                 type:"DELETE",
                 statusCode:{
                     204:function () {
-                        $("#tbStudent").html("")
                         findAllCollege()
                     }
                 }
