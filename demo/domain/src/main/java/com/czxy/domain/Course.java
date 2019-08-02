@@ -10,6 +10,7 @@ import javax.persistence.Table;
 @Data
 @Table(name = "course")
 public class Course {
+
     /**
      * ID
      */
