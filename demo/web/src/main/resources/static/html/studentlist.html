@@ -40,7 +40,6 @@
 
         function myusername() {
             var u = $("#username").val()
-            alert(u)
             $.ajax({
                 url: "/student/search/" + u,
                 type: "GET",
@@ -86,7 +85,7 @@
 <body>
 <div id="table">
     <div class="add">
-        <b>当前专业信息</b> <br><br>
+        <b>学生信息</b> <br><br>
         <font size="2">查询学生</font>
         <input type="text" name="username" id="username" placeholder="请输入学生姓名"/>
         <button onclick="myusername()">查询</button>
